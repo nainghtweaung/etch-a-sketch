@@ -1,0 +1,28 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.main_wrapper {
+  --size: 500px;
+  background-color: hsl(0deg 40% 40% / 0.2);
+  margin: 0 auto;
+  width: var(--size);
+  height: var(--size);
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.grid_container {
+  display: flex;
+  flex-wrap: wrap;
+}
