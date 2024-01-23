@@ -1,42 +1,66 @@
 const mainWrapper = document.querySelector(".main_wrapper");
 const gridContainer = document.querySelector(".grid_container");
 
-let gridCount = 16;
+let gridPerSize = 2;
+let gridCount;
+let gridTotalCount = gridPerSize ** 2;
 
 function initializeGrid() {
-  gridContainer.innerHTML = "";
-  for (let i = 0; i < gridCount * gridCount; i++) {
+  resetGrid();
+  gridCount = gridPerSize ** 2;
+  console.log("grid count", gridCount);
+  const gridCountDifference =
+    gridTotalCount === gridCount
+      ? gridPerSize ** 2
+      : gridCount - gridTotalCount;
+  // while (gridContainer.firstChild) {
+  //   gridContainer.removeChild(gridContainer.firstChild);
+  // }
+  for (let i = 0; i < gridCountDifference; i++) {
+    // Create a grid and size
     const grid = document.createElement("div");
-    grid.style["flex"] = `0 1 ${
-      gridContainer.parentElement.clientWidth / gridCount
-    }px`;
-    grid.style.height = `${
-      gridContainer.parentElement.clientHeight / gridCount
-    }px`;
-    grid.style.backgroundColor = "red";
-
-    grid.addEventListener("mouseenter", () => {
-      grid.style.backgroundColor = "black";
-    });
+    gridContainer.style.setProperty(
+      "--grid-size",
+      gridContainer.parentElement.clientHeight / gridPerSize + "px"
+    );
+    grid.classList.add("grid_child");
     gridContainer.appendChild(grid);
   }
+  const grids = gridContainer.querySelectorAll("div");
+  gridTotalCount = Array.from(grids).length;
+  console.log("grid total count", gridTotalCount);
 }
 initializeGrid();
+
+gridContainer.addEventListener("mouseover", (event) => {
+  const grid = event.target;
+  grid.classList.add("grid_child_active");
+});
+
+function resetGrid() {
+  let grids = gridContainer.querySelectorAll("div");
+  grids.forEach((grid) => {
+    grid.classList.remove("grid_child_active");
+  });
+}
 
 const btnReset = document.querySelector(".reset");
 const btnEnterSize = document.querySelector(".enter_size");
 
-btnReset.addEventListener("click", () => initializeGrid());
+btnReset.addEventListener("click", () => resetGrid());
 
 btnEnterSize.addEventListener("click", () => {
-  let input = Number(prompt("Enter number of squares per side..."));
-  console.log(input);
+  let input = prompt("Enter number of squares per side...");
+  if (input === null) {
+    return;
+  }
 
   // check if input is valid
-  while (Number.isNaN(input) || input * input > 100) {
+  while (Number.isNaN(input) || input > 100 || input === 0) {
     input = Number(prompt("Enter a number"));
     console.log(input);
   }
-  gridCount = input;
+  gridPerSize = input;
+  console.log("gridpersize", gridPerSize);
   initializeGrid();
 });

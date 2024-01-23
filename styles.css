@@ -10,7 +10,7 @@ body {
 }
 
 .main_wrapper {
-  --size: 500px;
+  --size: 400px;
   background-color: hsl(0deg 40% 40% / 0.2);
   margin: 0 auto;
   width: var(--size);
@@ -20,9 +20,22 @@ body {
 .actions {
   display: flex;
   justify-content: space-between;
+  background-color: blue;
+  padding: 16px;
 }
 
 .grid_container {
+  --grid-size: 16px;
   display: flex;
   flex-wrap: wrap;
+}
+
+.grid_child {
+  background-color: red;
+  flex: 0 0 var(--grid-size);
+  height: var(--grid-size);
+}
+
+.grid_child_active {
+  background-color: black;
 }
