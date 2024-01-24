@@ -7,6 +7,7 @@
 body {
   margin: 0;
   padding: 0;
+  background-color: hsl(240deg 64% 88%);
 }
 
 .main_wrapper {
@@ -17,21 +18,34 @@ body {
   height: var(--size);
 }
 
+h1 {
+  text-align: center;
+  padding-top: 32px;
+}
+
 .actions {
   display: flex;
   justify-content: space-between;
-  background-color: blue;
+  background-color: hsl(240deg 17% 42% / 0.6);
   padding: 16px;
+  margin-top: 32px;
 }
 
-.grid_container {
+.actions > button {
+  padding: 8px 12px;
+  border-radius: 9999px;
+  border-color: transparent;
+  filter: drop-shadow(0px 2px 4px hsl(240deg 17% 42%));
+}
+
+.grid_parent {
   --grid-size: 16px;
   display: flex;
   flex-wrap: wrap;
 }
 
 .grid_child {
-  background-color: red;
+  background-color: white;
   flex: 0 0 var(--grid-size);
   height: var(--grid-size);
 }

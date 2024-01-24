@@ -1,34 +1,24 @@
 const mainWrapper = document.querySelector(".main_wrapper");
 const gridContainer = document.querySelector(".grid_container");
 
-let gridPerSize = 2;
-let gridCount;
-let gridTotalCount = gridPerSize ** 2;
+let gridPerSize = 64;
 
 function initializeGrid() {
-  resetGrid();
-  gridCount = gridPerSize ** 2;
-  console.log("grid count", gridCount);
-  const gridCountDifference =
-    gridTotalCount === gridCount
-      ? gridPerSize ** 2
-      : gridCount - gridTotalCount;
-  // while (gridContainer.firstChild) {
-  //   gridContainer.removeChild(gridContainer.firstChild);
-  // }
-  for (let i = 0; i < gridCountDifference; i++) {
+  while (gridContainer.firstChild) {
+    gridContainer.removeChild(gridContainer.firstChild);
+  }
+  const gridParent = document.createElement("div");
+  for (let i = 0; i < gridPerSize ** 2; i++) {
     // Create a grid and size
     const grid = document.createElement("div");
-    gridContainer.style.setProperty(
-      "--grid-size",
-      gridContainer.parentElement.clientHeight / gridPerSize + "px"
-    );
+    gridParent.style.setProperty("--grid-size", `${400 / gridPerSize}px`);
     grid.classList.add("grid_child");
-    gridContainer.appendChild(grid);
+    gridParent.classList.add("grid_parent");
+    gridParent.appendChild(grid);
   }
+  gridContainer.appendChild(gridParent);
   const grids = gridContainer.querySelectorAll("div");
-  gridTotalCount = Array.from(grids).length;
-  console.log("grid total count", gridTotalCount);
+  console.log(grids);
 }
 initializeGrid();
 
